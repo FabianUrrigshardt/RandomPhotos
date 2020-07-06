@@ -30,18 +30,29 @@ def testComand():
 def getImgList():
     ret = collections.deque()
     for sfld in os.listdir('images'):
-        for im in os.listdir(os.path.join('images',sfld)):
-            print(im)
-            ret.append(im)         
+        #for im in os.listdir(os.path.join('images',sfld)):
+            print(sfld) #print(im)
+            ret.append(sfld) #ret.append(im)
     return ret    
 
 def getRandomImg(imgList):
-    #rand = random.randint(1,imgList.maxlen())
-    rand = 1
+    rand = random.randint(1,len(imgList))
+    #rand = 1
+    ret = ""
     while rand > 0:
         ret=imgList.pop()
         rand = rand -1
     return ret
+
+def showNewImage(imgList):
+    im = Image.open("images\\" + getRandomImg(imgList))
+    out = smallerImg(im)
+    img = ImageTk.PhotoImage(out)
+    return    
+
+def refresh(self):
+    self.destroy()
+    self.__init__()    
 
 imgList = getImgList()
 
@@ -49,7 +60,7 @@ window = Tk()
 window.title("Random Photo App")
 window.geometry('800x800')
 
-im = Image.open(getRandomImg(imgList))
+im = Image.open("images\\" + getRandomImg(imgList))
 out = smallerImg(im)
 img = ImageTk.PhotoImage(out)
 
@@ -58,7 +69,7 @@ canvas = Canvas(window, width=600, height=600)
 canvas.pack()
 canvas.create_image(300,300, image=img)
 
-btNext = Button(window, text="nächstes Bild", command=testComand())
+btNext = Button(window, text="nächstes Bild", command=Tk.update(self=))
 btNext.pack()
 
 
