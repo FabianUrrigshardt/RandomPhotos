@@ -25,14 +25,14 @@ def smallerImg(img):
     return img.resize((x,y))
 
 def testComand():
+    print("Button funktioniert")
     return
 
 def getImgList():
     ret = collections.deque()
     for sfld in os.listdir('images'):
-        #for im in os.listdir(os.path.join('images',sfld)):
-            print(sfld) #print(im)
-            ret.append(sfld) #ret.append(im)
+        print(sfld) 
+        ret.append(sfld) 
     return ret    
 
 def getRandomImg(imgList):
@@ -44,15 +44,10 @@ def getRandomImg(imgList):
         rand = rand -1
     return ret
 
-def showNewImage(imgList):
-    im = Image.open("images\\" + getRandomImg(imgList))
-    out = smallerImg(im)
-    img = ImageTk.PhotoImage(out)
-    return    
-
-def refresh(self):
-    self.destroy()
-    self.__init__()    
+def restart(window):
+    window.destroy()
+    os.system("python main.py")
+    return
 
 imgList = getImgList()
 
@@ -64,13 +59,11 @@ im = Image.open("images\\" + getRandomImg(imgList))
 out = smallerImg(im)
 img = ImageTk.PhotoImage(out)
 
-
 canvas = Canvas(window, width=600, height=600)
 canvas.pack()
 canvas.create_image(300,300, image=img)
 
-btNext = Button(window, text="nächstes Bild", command=Tk.update(self=))
+btNext = Button(window, text="Nächstes Bild", command=lambda : restart(window))
 btNext.pack()
-
 
 window.mainloop()
